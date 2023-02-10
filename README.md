@@ -1,1 +1,2 @@
-# django-little-lemon
+/api/bookings/
+/api/registration/
