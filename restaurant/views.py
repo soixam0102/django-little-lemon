@@ -9,6 +9,7 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 
+from .serializer import booking_serializer
 
 # Create your views here.
 def home(request):
@@ -20,7 +21,7 @@ def about(request):
 def reservations(request):
     date = request.GET.get('date',datetime.today().date())
     bookings = Booking.objects.all()
-    booking_json = serializers.serialize('json', bookings)
+    booking_json = booking_serializer.serializer(bookings)
     return render(request, 'bookings.html',{"bookings":booking_json})
 
 def book(request):
@@ -36,7 +37,7 @@ def book(request):
 def bookings(request):
     data = request.GET.get('date',datetime.today().date())
     bookings = Booking.objects.all()
-    booking_json = serializers.serialize('json', bookings)
+    booking_json = booking_serializer.serializer(bookings)
     return render(request, 'bookings.html', {'bookings': booking_json})
 def menu(request):
     menu_data = Menu.objects.all()
